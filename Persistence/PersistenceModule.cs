@@ -5,7 +5,9 @@ using Persistence.Context;
 using System.Diagnostics.CodeAnalysis;
 using Z.EntityFramework.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Shared;
+using Persistence.Repositories.Interfaces;
+using Persistence.Repositories.Implementations;
+using AutoMapper;
 
 namespace Persistence;
 
@@ -16,7 +18,7 @@ public static class PersistenceModule
     {
         EntityFrameworkManager.IsCommunity = true;
 
-        var connectionString = configuration.GetValue<string>(nameof(ApplicationConfiguration.DbConnectionString));
+        string connectionString = configuration.GetConnectionString("DefaultConnection")!;
 
         services.AddDbContext<HospitalContext>(options =>
         {
@@ -30,5 +32,24 @@ public static class PersistenceModule
             });
             options.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.BoolWithDefaultWarning));
         });
+
+        services.AddTransient<ICabinetRepository, CabinetRepository>();
+        services.AddTransient<IDoctorRepository, DoctorRepository>();
+        services.AddTransient<IPatientRepository, PatientRepository>();
+        services.AddTransient<ISectorRepository, SectorRepository>();
+        services.AddTransient<ISpecializationRepository, SpecializationRepository>();
+
+        AddAutomapper(services);
+    }
+
+    private static void AddAutomapper(IServiceCollection services)
+    {
+        var mapperConfig = new MapperConfiguration(mc => mc.AddMaps(typeof(PersistenceModule).Assembly));
+
+        var mapper = mapperConfig.CreateMapper();
+
+        mapperConfig.AssertConfigurationIsValid();
+
+        services.AddSingleton(mapper);
     }
 }

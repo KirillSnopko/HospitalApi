@@ -10,6 +10,8 @@ public interface ICrudRepository<T, K> where T : BaseEntity<K>
 
     Task CreateAsync(T item);
 
+    Task CreateAsync(List<T> items);
+
     Task UpdateAsync(T item);
 
     Task UpdateAsync(List<T> items);

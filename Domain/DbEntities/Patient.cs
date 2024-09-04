@@ -18,5 +18,5 @@ public class Patient : BaseEntity<long>
 
     public long SectorId { get; set; }
 
-    public Sector Sector { get; set; }
+    public virtual Sector Sector { get; set; }
 }

@@ -27,6 +27,12 @@ public abstract class AbstractCrudRepository<T, K> : ICrudRepository<T, K> where
         return _context.SaveChangesAsync();
     }
 
+    public Task CreateAsync(List<T> items)
+    {
+        _context.Set<T>().AddRange(items);
+        return _context.SaveChangesAsync();
+    }
+
     public virtual async Task RemoveAsync(K id)
     {
         var t = await GetByIdAsync(id);

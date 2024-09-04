@@ -3,6 +3,7 @@ using Application.ApiCommandHandlers.Doctors.Handlers.Delete;
 using Application.ApiCommandHandlers.Doctors.Handlers.Update;
 using Application.ApiCommandHandlers.Doctors.Queries.GetAll;
 using Application.ApiCommandHandlers.Doctors.Queries.GetById;
+using Application.ApiCommandHandlers.Doctors.Queries.GetData;
 using Domain.DataTransferObjects;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,10 @@ public class DoctorController : Controller
     [HttpPost("search", Name = "SearchDoctors")]
     [ProducesResponseType(typeof(List<DoctorDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult> SearchMeetings([FromBody] GetAllDoctorsQuery request) => Ok(await _mediator.Send(request));
+
+    [HttpGet("available-data", Name = "Available data")]
+    [ProducesResponseType(typeof(GetAvailableDataQueryResponse), StatusCodes.Status200OK)]
+    public async Task<ActionResult> AvailableData() => Ok(await _mediator.Send(new GetAvailableDataQuery()));
 
     [HttpGet("id:long", Name = "Doctor by id")]
     [ProducesResponseType(typeof(DoctorDto), StatusCodes.Status200OK)]

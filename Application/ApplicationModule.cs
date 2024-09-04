@@ -1,4 +1,5 @@
-﻿using Application.ApiCommandHandlers.Validation;
+﻿using Application.ApiCommandHandlers.Doctors.GetAll;
+using Application.ApiCommandHandlers.Validation;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -48,7 +49,7 @@ public static class ApplicationModule
 
     private static void InjectCommandHandlers(this IServiceCollection services)
     {
-        /*  services.AddTransient<FunCommandHandler>();*/
+        services.AddTransient<GetAllDoctorsCommandHandler>();
 
     }
 }

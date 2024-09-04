@@ -2,9 +2,9 @@
 using MediatR;
 using Shared.Models;
 
-namespace Application.ApiCommandHandlers.Doctors.GetAll;
+namespace Application.ApiCommandHandlers.Doctors.Queries.GetAll;
 
-public sealed record GetAllDoctorsCommand : IRequest<List<DoctorDto>>
+public sealed record GetAllDoctorsQuery : IRequest<List<DoctorDto>>
 {
     public PaginationParams PaginationParams { get; set; }
 

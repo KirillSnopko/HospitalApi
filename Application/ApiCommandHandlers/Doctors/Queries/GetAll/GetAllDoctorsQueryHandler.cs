@@ -1,24 +1,26 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Domain.DataTransferObjects;
+using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Repositories.Interfaces;
 
-namespace Application.ApiCommandHandlers.Doctors.GetAll;
+namespace Application.ApiCommandHandlers.Doctors.Queries.GetAll;
 
-public sealed class GetAllDoctorsCommandHandler : IRequestHandler<GetAllDoctorsCommand, List<DoctorDto>>
+[UsedImplicitly]
+public sealed class GetAllDoctorsQueryHandler : IRequestHandler<GetAllDoctorsQuery, List<DoctorDto>>
 {
     private readonly IDoctorRepository _repository;
     private readonly IMapper _mapper;
 
-    public GetAllDoctorsCommandHandler(IDoctorRepository repository, IMapper mapper)
+    public GetAllDoctorsQueryHandler(IDoctorRepository repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
     }
 
-    public Task<List<DoctorDto>> Handle(GetAllDoctorsCommand request, CancellationToken cancellationToken)
+    public Task<List<DoctorDto>> Handle(GetAllDoctorsQuery request, CancellationToken cancellationToken)
     {
         var queryable = _repository.Queryable();
 

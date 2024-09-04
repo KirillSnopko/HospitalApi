@@ -1,4 +1,8 @@
-﻿using Application.ApiCommandHandlers.Doctors.GetAll;
+﻿using Application.ApiCommandHandlers.Doctors.Handlers.Add;
+using Application.ApiCommandHandlers.Doctors.Handlers.Delete;
+using Application.ApiCommandHandlers.Doctors.Handlers.Update;
+using Application.ApiCommandHandlers.Doctors.Queries.GetAll;
+using Application.ApiCommandHandlers.Doctors.Queries.GetById;
 using Application.ApiCommandHandlers.Validation;
 using FluentValidation;
 using MediatR;
@@ -11,7 +15,7 @@ namespace Application;
 
 public static class ApplicationModule
 {
-    public static void AddTelegramBotModule(this IServiceCollection services, IConfiguration configuration)
+    public static void AddApplicationModule(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddMediatr();
         services.InjectCommandHandlers();
@@ -49,7 +53,10 @@ public static class ApplicationModule
 
     private static void InjectCommandHandlers(this IServiceCollection services)
     {
-        services.AddTransient<GetAllDoctorsCommandHandler>();
-
+        services.AddTransient<GetAllDoctorsQueryHandler>();
+        services.AddTransient<GetDoctorByIdQueryHandler>();
+        services.AddTransient<AddDoctorCommandHandler>();
+        services.AddTransient<UpdateDoctorCommandHandler>();
+        services.AddTransient<DeleteDoctorCommandHandler>();
     }
 }

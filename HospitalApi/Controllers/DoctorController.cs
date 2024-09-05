@@ -24,29 +24,27 @@ public class DoctorController : Controller
         _mediator = mediator;
     }
 
-    [HttpPost("search", Name = "SearchDoctors")]
+    [HttpPost("all", Name = "All doctors")]
     [ProducesResponseType(typeof(List<DoctorDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult> SearchMeetings([FromBody] GetAllDoctorsQuery request) => Ok(await _mediator.Send(request));
+    public async Task<ActionResult> All([FromBody] GetAllDoctorsQuery request) => Ok(await _mediator.Send(request));
 
     [HttpGet("available-data", Name = "Available data")]
     [ProducesResponseType(typeof(GetAvailableDataQueryResponse), StatusCodes.Status200OK)]
     public async Task<ActionResult> AvailableData() => Ok(await _mediator.Send(new GetAvailableDataQuery()));
 
     [HttpGet("id:long", Name = "Doctor by id")]
-    [ProducesResponseType(typeof(DoctorDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(DoctorEditDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> GetById(long id) => Ok(await _mediator.Send(new GetDoctorByIdQuery(id)));
 
     [HttpPost(Name = "Add doctor")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult> Add(AddDoctorCommand command)
-    {
-        await _mediator.Send(command);
-        return Ok();
-    }
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public async Task<ActionResult> Add(AddDoctorCommand command) => Ok(await _mediator.Send(command));
 
     [HttpPut(Name = "Update doctor")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Update(UpdateDoctorCommand command)
     {
         await _mediator.Send(command);
@@ -55,6 +53,7 @@ public class DoctorController : Controller
 
     [HttpDelete(Name = "Delete doctor")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> Update(DeleteDoctorCommand command)
     {
         await _mediator.Send(command);

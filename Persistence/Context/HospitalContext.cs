@@ -5,9 +5,11 @@ namespace Persistence.Context;
 
 public class HospitalContext : DbContext
 {
+    public HospitalContext() { }
+
     public HospitalContext(DbContextOptions<HospitalContext> options) : base(options)
     {
-        Database.EnsureCreated();
+        //Database.EnsureCreated;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

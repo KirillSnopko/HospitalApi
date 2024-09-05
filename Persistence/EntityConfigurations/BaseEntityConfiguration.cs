@@ -19,7 +19,7 @@ internal class BaseEntityConfiguration<T, TKey> : IEntityTypeConfiguration<T> wh
 
         builder.Property(x => x.CreatedAt)
             .HasColumnName(ColumnsBase.CreatedAt)
-            .HasDefaultValueSql("NOW()")
+            .HasDefaultValueSql("GETDATE()")
             .ValueGeneratedOnAdd();
 
         builder.Property(x => x.IsDeleted)

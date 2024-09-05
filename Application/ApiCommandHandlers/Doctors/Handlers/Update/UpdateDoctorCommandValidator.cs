@@ -9,5 +9,7 @@ public sealed class UpdateDoctorCommandValidator : AbstractValidator<UpdateDocto
         RuleFor(x => x.Id).NotEmpty();
         RuleFor(x => x.FIO).NotEmpty();
         RuleFor(x => x.SpecializationId).NotEmpty();
+        RuleFor(x => x.CabinetId).NotEmpty();
+        RuleFor(x => x.SectorId).NotEmpty();
     }
 }

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Persistence.Repositories.Interfaces;
 using Persistence.Repositories.Implementations;
 using AutoMapper;
+using Persistence.DbInitializer;
+using Persistence.Services;
 
 namespace Persistence;
 
@@ -38,6 +40,8 @@ public static class PersistenceModule
         services.AddTransient<IPatientRepository, PatientRepository>();
         services.AddTransient<ISectorRepository, SectorRepository>();
         services.AddTransient<ISpecializationRepository, SpecializationRepository>();
+        services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();
+        services.AddSingleton<IAutomaticDbMigrationService, AutomaticDbMigrationService>();
 
         AddAutomapper(services);
     }

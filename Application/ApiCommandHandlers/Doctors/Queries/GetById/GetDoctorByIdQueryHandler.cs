@@ -9,7 +9,7 @@ using Persistence.Repositories.Interfaces;
 namespace Application.ApiCommandHandlers.Doctors.Queries.GetById;
 
 [UsedImplicitly]
-public sealed class GetDoctorByIdQueryHandler : IRequestHandler<GetDoctorByIdQuery, DoctorDto>
+public sealed class GetDoctorByIdQueryHandler : IRequestHandler<GetDoctorByIdQuery, DoctorEditDto>
 {
     private readonly IDoctorRepository _repository;
     private readonly IMapper _mapper;
@@ -20,9 +20,9 @@ public sealed class GetDoctorByIdQueryHandler : IRequestHandler<GetDoctorByIdQue
         _mapper = mapper;
     }
 
-    public Task<DoctorDto> Handle(GetDoctorByIdQuery request, CancellationToken cancellationToken)
+    public Task<DoctorEditDto> Handle(GetDoctorByIdQuery request, CancellationToken cancellationToken)
     {
-        return _repository.Queryable().ProjectTo<DoctorDto>(_mapper.ConfigurationProvider)
+        return _repository.Queryable().ProjectTo<DoctorEditDto>(_mapper.ConfigurationProvider)
                                       .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
     }
 }

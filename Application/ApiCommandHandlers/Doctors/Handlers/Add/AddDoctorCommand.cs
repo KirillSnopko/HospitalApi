@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.ApiCommandHandlers.Doctors.Handlers.Add;
 
-public sealed record AddDoctorCommand : IRequest
+public sealed record AddDoctorCommand : IRequest<long>
 {
     [Required]
     public string FIO { get; set; }
@@ -11,7 +11,9 @@ public sealed record AddDoctorCommand : IRequest
     [Required]
     public long SpecializationId { get; set; }
 
+    [Required]
     public long CabinetId { get; set; }
 
+    [Required]
     public long SectorId { get; set; }
 }

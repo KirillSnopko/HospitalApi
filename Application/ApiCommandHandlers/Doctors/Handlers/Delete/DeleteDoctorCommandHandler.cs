@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using MediatR;
 using Persistence.Repositories.Interfaces;
-
+using Shared.Exceptions;
 
 namespace Application.ApiCommandHandlers.Doctors.Handlers.Delete
 {
@@ -21,7 +21,7 @@ namespace Application.ApiCommandHandlers.Doctors.Handlers.Delete
 
             if (doctor is null)
             {
-                throw new ArgumentNullException("Doctor not found");
+                throw new HospitalNotFoundException("Doctor not found");
             }
 
             doctor.SoftDelete();

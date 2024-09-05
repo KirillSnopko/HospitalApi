@@ -26,7 +26,7 @@ internal class PatientConfiguration : BaseEntityConfiguration<Patient, long>
 
         builder.Property(x => x.SectorId).HasColumnName(PatientSchema.Columns.SectorId);
 
-        builder.HasIndex(x => new { x.FirstName, x.LastName, x.Patronymic, x.IsDeleted }).HasFilter($"{ColumnsBase.IsDeleted} = false").IsUnique();
+        builder.HasIndex(x => new { x.FirstName, x.LastName, x.Patronymic, x.IsDeleted }).HasFilter($"{ColumnsBase.IsDeleted} = 1").IsUnique();
 
         builder.ToTable(PatientSchema.Table);
     }

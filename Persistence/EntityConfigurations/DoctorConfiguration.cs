@@ -21,7 +21,7 @@ internal class DoctorConfiguration : BaseEntityConfiguration<Doctor, long>
 
         builder.Property(x => x.SectorId).HasColumnName(DoctorSchema.Columns.SectorId);
 
-        builder.HasIndex(x => x.FIO).HasFilter($"{ColumnsBase.IsDeleted} = false").IsUnique();
+        builder.HasIndex(x => x.FIO).HasFilter($"{ColumnsBase.IsDeleted} = 1").IsUnique();
 
         builder.ToTable(DoctorSchema.Table);
     }

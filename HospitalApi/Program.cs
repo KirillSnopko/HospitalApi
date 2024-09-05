@@ -1,4 +1,6 @@
 using Application;
+using HospitalApi.Middlewares;
+using Persistence.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,21 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+var lifetime = app.Lifetime;
+var logger = app.Logger;
+
+
+lifetime.ApplicationStarted.Register(() => logger.LogWarning("The application started..."));
+lifetime.ApplicationStopped.Register(() => logger.LogWarning("The application stopped..."));
+
+using (var scope = app.Services.CreateScope())
+{
+    var migrationRunner = scope.ServiceProvider.GetService<IAutomaticDbMigrationService>();
+    migrationRunner?.Run();
+}
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

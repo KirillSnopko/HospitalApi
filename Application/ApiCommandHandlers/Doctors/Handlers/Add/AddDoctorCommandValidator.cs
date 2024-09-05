@@ -8,5 +8,7 @@ public sealed class AddDoctorCommandValidator : AbstractValidator<AddDoctorComma
     {
         RuleFor(x => x.FIO).NotEmpty();
         RuleFor(x => x.SpecializationId).NotEmpty();
+        RuleFor(x => x.CabinetId).NotEmpty();
+        RuleFor(x => x.SectorId).NotEmpty();
     }
 }
